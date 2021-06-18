@@ -19,7 +19,8 @@ public class Usuario{
 	}
 
 	public String getDatos(){
-		String linea = "Nombre: "+nombre + " Partidas Jugadas: " +jugadas+" Partidas Ganadas: "+ganadas;
+		int perdida= jugadas-ganadas;
+		String linea = "Nombre: "+nombre + " Partidas Jugadas: " +jugadas+" Partidas Ganadas: "+ganadas+" Partidas Perdidas: "+perdida;
 		return linea;
 	}
 }

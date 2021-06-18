@@ -5,11 +5,11 @@ public class Casilla{
 	public static final String RESET = "\u001B[0m";
 	public static final String BLANCO = "\u001B[47m";
 	public static final String ROJO = "\u001B[41m";
+	public static final String LBLACK = "\u001B[30m";
 	private int posX;
 	private int posY;
 	private boolean ocupado =false;
 	private boolean negro;
-	public String pre2="";
 	protected String[] figura={"|      |",
 			  				   "|      |",
 							   "|      |"};
@@ -17,7 +17,7 @@ public class Casilla{
 			  				    "|  "+NEGRO+"(_)"+RESET+" |",
 							    "|      |"};
 	protected String[] fOcupadoB={"|   _  |",
-			  				    "|  "+BLANCO+"(_)"+RESET+" |",
+			  				    "|  "+LBLACK+BLANCO+"(_) |",
 							    "|      |"}; 
 	 
 	public Casilla(int posY, int posX, boolean negro, boolean ocupado){

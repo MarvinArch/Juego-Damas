@@ -6,11 +6,10 @@ public class Tablero{
 	public static final String GREEN= "\u001B[43m";
 	public static final String RESET = "\u001B[0m";
 	public static final String LBLACK = "\u001B[30m";
-	Casilla[][] tab;
+	private Casilla[][] tab;
 
 	public Tablero(){
 		ConstruirTablero();
-		ImprimirTablero();
 	}
 
 	public void ConstruirTablero(){

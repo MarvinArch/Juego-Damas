@@ -4,7 +4,7 @@ import java.util.*;
 public class Inicio{
 	static Scanner leer = new Scanner(System.in);
 	private int conta=0;
-	private Tablero var;
+	private Tablero var= new Tablero();
 	private ArregloUsuario var2 = new ArregloUsuario();
 	
 	public static void main(String[] args) {
@@ -18,9 +18,9 @@ public class Inicio{
 	public void Menu(){
 		boolean salir=false;
 		do{
-			System.out.println("-------------Menu Damas-------------");
+			System.out.println("\n-------------Menu Damas-------------");
 			System.out.println("Opcion No.1: Crear Usuarios");
-			System.out.println("Opcion No.2: Imprimir Tablero");
+			System.out.println("Opcion No.2: Nuevo Juego");
 			System.out.println("Opcion No.3: Mostrar Usuarios");
 			System.out.println("Opcion No.4: Salir");
 			int opcion = leer.nextInt();
@@ -30,7 +30,7 @@ public class Inicio{
 						CrearUsuario();
 						break;
 				case 2:
-						var= new Tablero();
+						var.ImprimirTablero();
 						break;
 				case 3:
 						var2.ImprimirDatos();
