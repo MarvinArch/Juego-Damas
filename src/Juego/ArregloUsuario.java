@@ -17,4 +17,9 @@ public class ArregloUsuario{
 			System.out.println("Se ha superado el maximo de Usuarios");
 		}
 	}
+	public void ImprimirDatos(){
+		for (int i = 0; i < conta; i++) {
+			System.out.println(var[i].getDatos());
+		}
+	}
 }

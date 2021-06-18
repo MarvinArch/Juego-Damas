@@ -21,7 +21,8 @@ public class Inicio{
 			System.out.println("-------------Menu Damas-------------");
 			System.out.println("Opcion No.1: Crear Usuarios");
 			System.out.println("Opcion No.2: Imprimir Tablero");
-			System.out.println("Opcion No.3: Salir");
+			System.out.println("Opcion No.3: Mostrar Usuarios");
+			System.out.println("Opcion No.4: Salir");
 			int opcion = leer.nextInt();
 			String tmp= leer.nextLine();
 			switch (opcion){
@@ -32,6 +33,9 @@ public class Inicio{
 						var= new Tablero();
 						break;
 				case 3:
+						var2.ImprimirDatos();
+						break;
+				case 4:
 						salir=true;
 			}
 		}while(salir==false);
@@ -39,7 +43,7 @@ public class Inicio{
 
 
 	public void CrearUsuario(){
-		System.out.print("\n Ingrese nombre Jugador "+(conta+1)+"  ");
+		System.out.print("\nIngrese nombre Jugador "+(conta+1)+"  ");
 		String nombre= leer.nextLine();
 		var2.CrearArreglo(nombre);
 		conta++;

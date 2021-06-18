@@ -3,6 +3,9 @@ package src.Juego;
 import src.Casilla.*;
 
 public class Tablero{
+	public static final String GREEN= "\u001B[43m";
+	public static final String RESET = "\u001B[0m";
+	public static final String LBLACK = "\u001B[30m";
 	Casilla[][] tab;
 
 	public Tablero(){
@@ -26,14 +29,21 @@ public class Tablero{
 		}
 	}
 	public void ImprimirTablero(){
+		int fila=1;
+		System.out.println(GREEN+LBLACK+"    A       B       C       D       E       F       G       H    "+RESET);
 		for (int posY=0;posY<8 ;posY++ ) {
 			for (int linea=0;linea<3 ;linea++ ) {
 				for (int posX=0;posX<8 ;posX++ ) {
 					System.out.print(""+tab[posY][posX].DevolverLinea(linea));
+					if (linea==1 && posX==7) {
+						System.out.print(GREEN+LBLACK+fila+RESET);
+						fila++;
+					}else if(posX==7){
+						System.out.print(GREEN+LBLACK+" "+RESET);
+					}
 				}
 				System.out.println("");
 			}
-			//System.out.println("");
 		}
 	}
 }
