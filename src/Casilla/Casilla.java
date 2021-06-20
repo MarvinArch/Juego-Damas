@@ -50,4 +50,18 @@ public class Casilla{
 		
 		return linea;
 	}
+	// getters y setters
+	public boolean getNegro(){
+		return negro;
+	}
+
+	public boolean getOcupado(){
+		return ocupado;
+	}
+	public void setOcupado(boolean ocupado){
+		this.ocupado=ocupado;
+	}
+	public void setNegro(boolean negro){
+		this.negro=negro;
+	}
 } 	

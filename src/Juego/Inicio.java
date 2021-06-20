@@ -60,13 +60,15 @@ public class Inicio{
 	}
 	public void Juego(){
 		boolean ganador=false;
+		var2.ImprimirDatos();
 		String jug1=var2.DefinirJugadores(1);
 		String jug2=var2.DefinirJugadores(2);
+		var.DefinirBlancas(jug1, jug2);
 		int turno=1;
 		String jugador=jug1;
 		do{
 			var2.TurnoJugador(turno);
-			var.Juego(jugador);
+			ganador = var.Juego(jugador);
 			if (turno==1) {
 				turno=2;
 				jugador=jug2;
@@ -74,6 +76,11 @@ public class Inicio{
 				turno=1;
 				jugador=jug1;
 			}
+			
 		}while(ganador==false);
+		String win=var.getGanador();
+		var2.AcreditarPartidaGanada(win);
+		var2.AcreditarPartidaPerdida(win, jug1, jug2);
+		
 	}
 }

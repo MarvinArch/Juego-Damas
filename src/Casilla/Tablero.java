@@ -1,5 +1,6 @@
 package src.Casilla;
 
+
 import src.Juego.Datos;
 
 public class Tablero{
@@ -9,6 +10,11 @@ public class Tablero{
 	private Casilla[][] tab;
 	private String blancas;
 	private String negras;
+	private int lado=0;
+	private int vertical=0;
+	private int cBlancas;
+	private int cNegras;
+	private String ganador;
 
 	public Tablero(){
 		ConstruirTablero();
@@ -23,7 +29,7 @@ public class Tablero{
 				}else if (((i==5 || i==7)&& j%2!=0) ||(i==6 && j%2==0)){
 					tab[i][j]=new Casilla(i,j,false,true);
 				}else{
-					tab[i][j]=new Casilla(i,j,true,false);
+					tab[i][j]=new Casilla(i,j,false,false);
 				}
 
 			}
@@ -47,29 +53,119 @@ public class Tablero{
 			}
 		}
 	}
+
+	public String getGanador(){
+		return ganador;
+	}
+
 	public void DefinirBlancas(String blanca, String negra){
 		this.blancas=blanca;
 		this.negras=negra;
+		cBlancas=12;
+		cNegras=12;
+		ganador="";
 	}
 
 	public boolean Juego(String jugador){
-		boolean ganador=false;
+		boolean eganador=false;
 		ImprimirTablero();
 		MoverFicha(jugador);
-
-		return ganador;
+		if (cBlancas==0) {
+			ganador=negras;
+			eganador=true;
+		} else if(cNegras==0){
+			ganador=blancas;
+			eganador=true;
+		}
+		return eganador;
 	}
 
 	public void MoverFicha(String jugador){
 		String lugarIni=Datos.IngresarCadena("Ingrese posicion actual de ficha a mover");
 		int xIni=Datos.ConvertirNumero(lugarIni.substring(0, 1));
-		int yIni=Integer.parseInt(lugarIni.substring(1, 2));
+		int yIni=Integer.parseInt(lugarIni.substring(1, 2))-1;
 		String lugarFin=Datos.IngresarCadena("Ingrese posicion final de ficha a mover");
 		int xFin=Datos.ConvertirNumero(lugarFin.substring(0, 1));
-		int yFin=Integer.parseInt(lugarFin.substring(1, 2));
+		int yFin=Integer.parseInt(lugarFin.substring(1, 2))-1;
 		if (jugador.equalsIgnoreCase(blancas)) {
-			
+			MoverBlancas(xIni, yIni, xFin, yFin,jugador);
+		}else if (jugador.equalsIgnoreCase(negras)){
+			MoverNegras(xIni, yIni, xFin, yFin,jugador);
 		}
+
+	}
+	// Agregar Fichas Negras
+	public void MoverBlancas(int posXI, int posYI, int posXF, int posYF, String jugador){
+		boolean comer = ComprobarMovimiento(false, posXI, posYI, posXF, posYF, jugador);
+		tab[posYI][posXI].setNegro(false);
+		tab[posYF][posXF].setNegro(false);
+		
+	}
+	// Agregar Fichas Negras
+	public void MoverNegras(int posXI, int posYI, int posXF, int posYF, String jugador){
+		boolean comer=ComprobarMovimiento(true, posXI, posYI, posXF, posYF, jugador);
+		tab[posYI][posXI].setNegro(false);
+		tab[posYF][posXF].setNegro(true);
+		
+	}
+
+	public int DevolverLado(int posXI, int posXF){
+		int lado=0;
+		if (posXI-posXF<0) {
+			lado=1;
+		}else if (posXI-posXF>0)
+			lado=-1;
+		return lado;
+	}
+
+	public int DevolverVertical(int posYI, int posYF){
+		int verti=0;
+		if (posYI-posYF<0) {
+			verti=1;
+		}else if (posYI-posYF>0)
+			verti=-1;
+		return verti;
 	}
 	
+	public boolean ComprobarMovimiento(boolean color,int posXI, int posYI, int posXF, int posYF, String jugador){
+		boolean valido=false;
+		boolean comer=false;
+		
+		//comprobar validez del Movimiento
+		if (color==false && posYI-posYF==1 && Math.abs(posXI-posXF)==1) { //comprueba que el movimiento sea hacia arriba
+			valido=true;
+		}else if(color==true && posYF-posYI==1 && Math.abs(posXI-posXF)==1){//comprueba que el movimiento se hacia abajo
+			valido=true;	
+		}else if(Math.abs(posYI-posYF)==2 && Math.abs(posXI-posXF)==2){
+			lado=DevolverLado(posXI, posXF);
+			vertical=DevolverVertical(posYI, posYF);
+			if (tab[posYI+vertical][posXI+lado].getOcupado()==true && tab[posYI+vertical][posXI+lado].getNegro()!=color){
+				valido=true;
+				comer=true;
+			}
+		}
+		
+		if (tab[posYI][posXI].getNegro()==color && tab[posYI][posXI].getOcupado()==true && valido==true) {
+			if (tab[posYF][posXF].getOcupado()==false) {
+				tab[posYI][posXI].setOcupado(false);
+				tab[posYF][posXF].setOcupado(true);
+				if (comer==true) {
+					tab[posYI+vertical][posXI+lado].setOcupado(false);
+					tab[posYI+vertical][posXI+lado].setNegro(false);
+					if (color==true) {
+						cBlancas--;
+					}else if(color==false){
+						cNegras--;
+					}
+				}
+			}else{
+				System.out.println("La casilla elegida esta ocupada");
+				MoverFicha(jugador);
+			}
+		}else{
+			System.out.println("La casilla elegida es incorrecta");
+			MoverFicha(jugador);
+		}
+		return comer;
+	}
 }

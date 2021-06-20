@@ -31,9 +31,8 @@ public class ArregloUsuario{
 
 	public String DefinirJugadores(int num){
 		String jug;
-		ImprimirDatos();
 		System.out.println("Eliga 2 jugadores para la partida");
-		jug=Datos.IngresarCadena("Ingrese Nombre del primer jugador");
+		jug=Datos.IngresarCadena("Ingrese Nombre del jugador");
 		if(num==1){
 			jugador1 = ComprobarUsuario(jug);
 		}else{
@@ -63,5 +62,26 @@ public class ArregloUsuario{
 			System.out.println("Turno Jugador "+var[jugador2].getNombre()+"\n");
 		}
 		
+	}
+
+	public void AcreditarPartidaGanada(String nombre){
+		for (int i = 0; i < conta; i++) {
+			if (nombre.equalsIgnoreCase(var[i].getNombre())) {
+				var[i].ResultadoPartida(1, 1);
+			}
+		}
+	}
+
+	public void AcreditarPartidaPerdida(String nombre , String jug1, String jug2){
+		if (nombre.equalsIgnoreCase(jug1) ) {
+			nombre=jug2;
+		}else if (nombre.equalsIgnoreCase(jug2)){
+			nombre=jug1;
+		}
+		for (int i = 0; i < conta; i++) {
+			if (nombre.equalsIgnoreCase(var[i].getNombre())) {
+				var[i].ResultadoPartida(0, 1);
+			}
+		}
 	}
 }

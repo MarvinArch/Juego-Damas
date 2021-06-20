@@ -23,4 +23,9 @@ public class Usuario{
 		String linea = "Nombre: "+nombre + " Partidas Jugadas: " +jugadas+" Partidas Ganadas: "+ganadas+" Partidas Perdidas: "+perdida;
 		return linea;
 	}
+
+	public void ResultadoPartida(int ganada, int jugada){
+		this.ganadas+=ganada;
+		this.jugadas+=jugada;
+	}
 }
