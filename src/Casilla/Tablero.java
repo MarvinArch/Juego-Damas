@@ -65,6 +65,16 @@ public class Tablero{
 		cNegras=12;
 		ganador="";
 	}
+	
+	public String ColorFichas(String jugador){
+		String fichas="";
+		if (jugador.equalsIgnoreCase(blancas)) {
+			fichas="Blancas";
+		}else{
+			fichas="Negras";
+		}
+		return fichas;
+	}
 
 	public boolean Juego(String jugador){
 		boolean eganador=false;
@@ -81,6 +91,7 @@ public class Tablero{
 	}
 
 	public void MoverFicha(String jugador){
+		System.out.println("-----------Turno Jugador "+ jugador+" fichas "+ ColorFichas(jugador)+"-------");
 		String lugarIni=Datos.IngresarCadena("Ingrese posicion actual de ficha a mover");
 		int xIni=Datos.ConvertirNumero(lugarIni.substring(0, 1));
 		int yIni=Integer.parseInt(lugarIni.substring(1, 2))-1;

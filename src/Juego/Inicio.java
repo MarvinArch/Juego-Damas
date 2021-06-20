@@ -67,7 +67,6 @@ public class Inicio{
 		int turno=1;
 		String jugador=jug1;
 		do{
-			var2.TurnoJugador(turno);
 			ganador = var.Juego(jugador);
 			if (turno==1) {
 				turno=2;

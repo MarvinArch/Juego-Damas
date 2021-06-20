@@ -35,8 +35,10 @@ public class ArregloUsuario{
 		jug=Datos.IngresarCadena("Ingrese Nombre del jugador");
 		if(num==1){
 			jugador1 = ComprobarUsuario(jug);
+			jug=var[jugador1].getNombre();
 		}else{
 			jugador2 = ComprobarUsuario(jug);
+			jug=var[jugador2].getNombre();
 		}
 		return jug;
 	}
