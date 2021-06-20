@@ -1,12 +1,14 @@
-package src.Juego;
+package src.Casilla;
 
-import src.Casilla.*;
+import src.Juego.Datos;
 
 public class Tablero{
 	public static final String GREEN= "\u001B[43m";
 	public static final String RESET = "\u001B[0m";
 	public static final String LBLACK = "\u001B[30m";
 	private Casilla[][] tab;
+	private String blancas;
+	private String negras;
 
 	public Tablero(){
 		ConstruirTablero();
@@ -45,4 +47,29 @@ public class Tablero{
 			}
 		}
 	}
+	public void DefinirBlancas(String blanca, String negra){
+		this.blancas=blanca;
+		this.negras=negra;
+	}
+
+	public boolean Juego(String jugador){
+		boolean ganador=false;
+		ImprimirTablero();
+		MoverFicha(jugador);
+
+		return ganador;
+	}
+
+	public void MoverFicha(String jugador){
+		String lugarIni=Datos.IngresarCadena("Ingrese posicion actual de ficha a mover");
+		int xIni=Datos.ConvertirNumero(lugarIni.substring(0, 1));
+		int yIni=Integer.parseInt(lugarIni.substring(1, 2));
+		String lugarFin=Datos.IngresarCadena("Ingrese posicion final de ficha a mover");
+		int xFin=Datos.ConvertirNumero(lugarFin.substring(0, 1));
+		int yFin=Integer.parseInt(lugarFin.substring(1, 2));
+		if (jugador.equalsIgnoreCase(blancas)) {
+			
+		}
+	}
+	
 }

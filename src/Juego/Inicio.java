@@ -1,8 +1,10 @@
 package src.Juego;
 import java.util.*;
 
+import src.Casilla.Tablero;
+import src.Usuario.ArregloUsuario;
+
 public class Inicio{
-	static Scanner leer = new Scanner(System.in);
 	private int conta=0;
 	private Tablero var= new Tablero();
 	private ArregloUsuario var2 = new ArregloUsuario();
@@ -23,14 +25,13 @@ public class Inicio{
 			System.out.println("Opcion No.2: Nuevo Juego");
 			System.out.println("Opcion No.3: Mostrar Usuarios");
 			System.out.println("Opcion No.4: Salir");
-			int opcion = leer.nextInt();
-			String tmp= leer.nextLine();
+			int opcion = Datos.IngresoNumeros("Escoga una opcion");
 			switch (opcion){
 				case 1:
 						CrearUsuario();
 						break;
 				case 2:
-						var.ImprimirTablero();
+						NuevoJuego();
 						break;
 				case 3:
 						var2.ImprimirDatos();
@@ -43,9 +44,36 @@ public class Inicio{
 
 
 	public void CrearUsuario(){
-		System.out.print("\nIngrese nombre Jugador "+(conta+1)+"  ");
-		String nombre= leer.nextLine();
+		String nombre=Datos.IngresarCadena("Ingrese nombre Jugador "+(conta+1)+"  "); 
 		var2.CrearArreglo(nombre);
 		conta++;
+	}
+	public void NuevoJuego(){
+		int tmp=var2.getConta();
+		if (tmp>1) {
+			Juego();
+		}else{
+			System.out.println("No hay suficientes jugadores en la lista");
+			CrearUsuario();
+			NuevoJuego();
+		}
+	}
+	public void Juego(){
+		boolean ganador=false;
+		String jug1=var2.DefinirJugadores(1);
+		String jug2=var2.DefinirJugadores(2);
+		int turno=1;
+		String jugador=jug1;
+		do{
+			var2.TurnoJugador(turno);
+			var.Juego(jugador);
+			if (turno==1) {
+				turno=2;
+				jugador=jug2;
+			} else {
+				turno=1;
+				jugador=jug1;
+			}
+		}while(ganador==false);
 	}
 }
