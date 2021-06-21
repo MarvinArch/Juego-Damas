@@ -179,10 +179,12 @@ public class Tablero{
 					if (color==true) {
 						cBlancas--;
 						comer=false;
+						sugerido=false;
 						System.out.println("lllll");
 					}else if(color==false){
 						cNegras--;
 						comer=false;
+						sugerido=false;
 					}
 				}
 			}else{
@@ -222,12 +224,12 @@ public class Tablero{
 		for (int i=0; i<8 ;i++ ) {
 			for (int j=0; j<8 ;j++ ) {
 				if ((color==true && i+2<=7)||(color==false && i-2>=0 )) {
-					if (j+2<7 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+vertical][j+1].getOcupado()==true && tab[i+vertical][j+1].getNegro()!=color && tab[i+(2*vertical)][j+2].getOcupado()==false) {
+					if (j+2<=7 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+vertical][j+1].getOcupado()==true && tab[i+vertical][j+1].getNegro()!=color && tab[i+(2*vertical)][j+2].getOcupado()==false) {
 						System.out.print("Movimiento Sugerido de ");
 						sugerido=true;
 						System.out.println(""+Datos.ConvertirLetra(j)+(i+1)+" hacia "+Datos.ConvertirLetra(j+2)+(i+(2*vertical)+1));
 					}
-					if (j-2>0 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+vertical][j-1].getOcupado()==true && tab[i+vertical][j-1].getNegro()!=color && tab[i+(2*vertical)][j-2].getOcupado()==false){	
+					if (j-2>=0 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+vertical][j-1].getOcupado()==true && tab[i+vertical][j-1].getNegro()!=color && tab[i+(2*vertical)][j-2].getOcupado()==false){	
 						System.out.print("Movimiento Sugerido de ");
 						sugerido=true;
 						System.out.println(""+Datos.ConvertirLetra(j)+(i+1)+" hacia "+Datos.ConvertirLetra(j-2)+(i+(2*vertical)+1));

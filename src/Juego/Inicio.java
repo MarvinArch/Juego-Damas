@@ -63,10 +63,13 @@ public class Inicio{
 		var2.ImprimirDatos();
 		String jug1=var2.DefinirJugadores(1);
 		String jug2=var2.DefinirJugadores(2);
-		PiePapTij.Juego(jug1, jug2);
-		var.DefinirBlancas(jug1, jug2);
-		int turno=1;
-		String jugador=jug1;
+		int turno= EscogerFichas(jug1, jug2);
+		String jugador;
+		if (turno==1) {
+			jugador=jug1;
+		}else{
+			jugador=jug2;
+		}
 		do{
 			ganador = var.Juego(jugador);
 			if (turno==1) {
@@ -82,5 +85,22 @@ public class Inicio{
 		var2.AcreditarPartidaGanada(win);
 		var2.AcreditarPartidaPerdida(win, jug1, jug2);
 		
+	}
+
+	public int EscogerFichas(String jug1,String jug2){
+		int turno;
+		String juego=PiePapTij.Juego(jug1, jug2);
+		String fichas=PiePapTij.EscogerFichas(juego);
+		if ((juego.equalsIgnoreCase(jug1) && fichas.equalsIgnoreCase("negras")) ||(juego.equalsIgnoreCase(jug2) && fichas.equalsIgnoreCase("blancas"))) {
+			var.DefinirBlancas(jug2, jug1);
+		}else if((juego.equalsIgnoreCase(jug1) && fichas.equalsIgnoreCase("Blancas"))||(juego.equalsIgnoreCase(jug2) && fichas.equalsIgnoreCase("negras"))){
+			var.DefinirBlancas(jug1, jug2);
+		}
+		if (juego.equalsIgnoreCase(jug1)) {
+			turno=1;
+		}else{
+			turno=2;
+		}
+		return turno;
 	}
 }

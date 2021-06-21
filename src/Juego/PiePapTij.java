@@ -32,6 +32,10 @@ public class PiePapTij {
             }
             int tmp1 = (int)(Math.random()*3);
             int tmp2 = (int)(Math.random()*3);
+            System.out.println("Jugador "+jug1+" utilizo "+arreglo[tmp1]);
+            System.out.println("Jugador "+Jug2+" utilizo "+arreglo[tmp2]);
+            if (tmp1==0 && tmp2==2) tmp1=3;
+            if (tmp2==0 && tmp1==2) tmp2=3;
             if (tmp1>tmp2) {
                 ganador=jug1;
                 salir=true;
@@ -47,4 +51,15 @@ public class PiePapTij {
 
         return ganador;
     }
+
+    public static String EscogerFichas(String jugador){
+        String fichas;
+        String tmp=Datos.IngresarCadena("Jugador "+jugador +" Con que fichas desea jugar Blancas o Negras");
+        if (tmp.equalsIgnoreCase("blancas")) {
+            fichas="Blancas";
+        } else {
+            fichas="Negras";
+        }
+        return fichas;
+    } 
 }
