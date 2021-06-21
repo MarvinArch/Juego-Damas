@@ -4,15 +4,15 @@ import src.Juego.Datos;
 
 public class ArregloUsuario{
 	
-	private Usuario[] var = new Usuario[5];
+	private Usuario[] var = new Usuario[10];
 	private int conta=0;
-	private int jugador1, jugador2;
+	private int jugador1=-1, jugador2;
 	public ArregloUsuario(){
 
 	}
 
 	public void CrearArreglo(String nombre){
-		if (conta<5) {
+		if (conta<10) {
 			var[conta]=new Usuario(nombre);
 			conta++;
 		}else{
@@ -30,31 +30,35 @@ public class ArregloUsuario{
 	}
 
 	public String DefinirJugadores(int num){
-		String jug;
-		System.out.println("Eliga 2 jugadores para la partida");
-		jug=Datos.IngresarCadena("Ingrese Nombre del jugador");
-		if(num==1){
-			jugador1 = ComprobarUsuario(jug);
-			jug=var[jugador1].getNombre();
-		}else{
-			jugador2 = ComprobarUsuario(jug);
-			jug=var[jugador2].getNombre();
+		String jug="";
+		boolean salir=false;
+		while (salir==false) {
+			System.out.println("\nSe nesecitan 2 jugadores para la partida");
+			jug=Datos.IngresarCadena("Ingrese Nombre del jugador No."+num);
+			int tmp2=ComprobarUsuario(jug,num);
+			if(num==1 && tmp2>=0){
+				jugador1 = tmp2;
+				jug=var[jugador1].getNombre();
+				salir=true;
+			}else if(num==2 && tmp2>=0 && tmp2!=jugador1){
+				jugador2 = tmp2;
+				jug=var[jugador2].getNombre();
+				salir=true;
+			}
 		}
 		return jug;
 	}
-
-	public int ComprobarUsuario(String nombre){
-		int num=-1;
+  //8<
+	public int ComprobarUsuario(String nombre, int num){
+		int num1=-1;
 		for (int i = 0; i < conta; i++) {
 			if(var[i].getNombre().equalsIgnoreCase(nombre)){
-				num=i;
+				num1=i;
 			}
 		}
-		if (num<0) {
-			System.out.println("El usuario no coincide con los usuarios en la lista");
-			DefinirJugadores(num);
-		}
-		return num;
+		if (num1<0) System.out.println("El usuario no coincide con los usuarios en la lista");
+		if (num1==jugador1) System.out.println("El usuario ingresado ya fue elegido"); 
+		return num1;
 	}
 
 	public void TurnoJugador(int jugador){

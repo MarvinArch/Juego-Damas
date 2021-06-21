@@ -63,6 +63,7 @@ public class Inicio{
 		var2.ImprimirDatos();
 		String jug1=var2.DefinirJugadores(1);
 		String jug2=var2.DefinirJugadores(2);
+		PiePapTij.Juego(jug1, jug2);
 		var.DefinirBlancas(jug1, jug2);
 		int turno=1;
 		String jugador=jug1;
