@@ -3,7 +3,8 @@ import java.util.*;
 
 public class Datos {
     static Scanner leer= new Scanner(System.in);
-    
+    static String[] arreglo={"A","B","C","D","E","F","G","H"};
+
     public static String IngresarCadena(String mensaje){
         System.out.print("\n"+mensaje+" ");
         String respuesta =leer.nextLine();
@@ -24,12 +25,15 @@ public class Datos {
 
     public static int ConvertirNumero(String combinacion){
         int posicionX=-1;
-        String[] arreglo={"a","b","c","d","e","f","g","h"};
         for (int i = 0; i < arreglo.length; i++) {
             if (combinacion.equalsIgnoreCase(arreglo[i])) {
                 posicionX=i;
             }
         }
         return posicionX;
+    }
+    public static String ConvertirLetra(int num){
+        String letra=arreglo[num];
+        return letra;
     }
 }

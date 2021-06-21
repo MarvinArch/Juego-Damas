@@ -79,6 +79,11 @@ public class Tablero{
 	public boolean Juego(String jugador){
 		boolean eganador=false;
 		ImprimirTablero();
+		if (jugador.equalsIgnoreCase(blancas)) {
+			ComprobarComer(false);
+		}else if (jugador.equalsIgnoreCase(negras)){
+			ComprobarComer(true);
+		}
 		MoverFicha(jugador);
 		if (cBlancas==0) {
 			ganador=negras;
@@ -91,6 +96,7 @@ public class Tablero{
 	}
 
 	public void MoverFicha(String jugador){
+
 		System.out.println("-----------Turno Jugador "+ jugador+" fichas "+ ColorFichas(jugador)+"-------");
 		String lugarIni=Datos.IngresarCadena("Ingrese posicion actual de ficha a mover");
 		int xIni=Datos.ConvertirNumero(lugarIni.substring(0, 1));
@@ -141,20 +147,22 @@ public class Tablero{
 	public boolean ComprobarMovimiento(boolean color,int posXI, int posYI, int posXF, int posYF, String jugador){
 		boolean valido=false;
 		boolean comer=false;
-		
+		//comer=ComprobarComer(color,posXI, posYI, posXF, posYF); 
 		//comprobar validez del Movimiento
 		if (color==false && posYI-posYF==1 && Math.abs(posXI-posXF)==1) { //comprueba que el movimiento sea hacia arriba
 			valido=true;
 		}else if(color==true && posYF-posYI==1 && Math.abs(posXI-posXF)==1){//comprueba que el movimiento se hacia abajo
 			valido=true;	
 		}else if(Math.abs(posYI-posYF)==2 && Math.abs(posXI-posXF)==2){
-			lado=DevolverLado(posXI, posXF);
-			vertical=DevolverVertical(posYI, posYF);
-			if (tab[posYI+vertical][posXI+lado].getOcupado()==true && tab[posYI+vertical][posXI+lado].getNegro()!=color){
+			//lado=DevolverLado(posXI, posXF);
+			//vertical=DevolverVertical(posYI, posYF);
+			//if (tab[posYI+vertical][posXI+lado].getOcupado()==true && tab[posYI+vertical][posXI+lado].getNegro()!=color){
 				valido=true;
-				comer=true;
-			}
+				comer=ComprobarComer(color,posXI, posYI, posXF, posYF); 
+			//	comer=true;
+			//}
 		}
+
 		
 		if (tab[posYI][posXI].getNegro()==color && tab[posYI][posXI].getOcupado()==true && valido==true) {
 			if (tab[posYF][posXF].getOcupado()==false) {
@@ -178,5 +186,47 @@ public class Tablero{
 			MoverFicha(jugador);
 		}
 		return comer;
+	}
+	// ejecuta comer pieza contraria
+	public boolean ComprobarComer(boolean color,int posXI, int posYI, int posXF, int posYF){
+		boolean comer=false;
+		lado=DevolverLado(posXI, posXF);
+		vertical=DevolverVertical(posYI, posYF);
+		if (tab[posYI+vertical][posXI+lado].getOcupado()==true && tab[posYI+vertical][posXI+lado].getNegro()!=color){
+			//valido=true;
+			comer=true;
+		}else if(tab[posYI+vertical][posXI-lado].getOcupado()==true && tab[posYI+vertical][posXI-lado].getNegro()!=color){
+			comer=true;
+			System.out.println("del lado contrario puede comer");
+		}
+		int vertical=1;
+		if (color==false) {
+			vertical=-1;
+		}
+		return comer;
+	}
+	//comprueba al Inicio del turno si existen Fichas que puedan comer
+	public boolean ComprobarComer(boolean color){
+		boolean comer=false;
+		vertical=1;
+		if (color==false) {
+			vertical=-1;
+		}
+		for (int i=0; i<8 ;i++ ) {
+			for (int j=0; j<8 ;j++ ) {
+				if ((color==true && i+2<=7)||(color==false && i-2>=0 )) {
+					if (j+2<7 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+vertical][j+1].getOcupado()==true && tab[i+vertical][j+1].getNegro()!=color && tab[i+(2*vertical)][j+2].getOcupado()==false) {
+						System.out.print("Movimiento Sugerido de ");
+						System.out.println(""+Datos.ConvertirLetra(j)+(i+1)+" hacia "+Datos.ConvertirLetra(j+2)+(i+(2*vertical)+1));
+					}
+					if (j-2>0 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+vertical][j-1].getOcupado()==true && tab[i+vertical][j-1].getNegro()!=color && tab[i+(2*vertical)][j-2].getOcupado()==false){	
+						System.out.print("Movimiento Sugerido de ");
+						System.out.println(""+Datos.ConvertirLetra(j)+(i+1)+" hacia "+Datos.ConvertirLetra(j-2)+(i+(2*vertical)+1));
+					}
+					
+				}
+			}
+		}
+		return comer;	
 	}
 }
