@@ -10,7 +10,7 @@ public class ArregloUsuario{
 	public ArregloUsuario(){
 
 	}
-
+	
 	public void CrearArreglo(String nombre){
 		if (conta<10) {
 			var[conta]=new Usuario(nombre);
@@ -61,15 +61,6 @@ public class ArregloUsuario{
 		return num1;
 	}
 
-	public void TurnoJugador(int jugador){
-		if (jugador==1) {
-			System.out.println("Turno Jugador "+var[jugador1].getNombre()+"\n");	
-		}else{
-			System.out.println("Turno Jugador "+var[jugador2].getNombre()+"\n");
-		}
-		
-	}
-
 	public void AcreditarPartidaGanada(String nombre){
 		for (int i = 0; i < conta; i++) {
 			if (nombre.equalsIgnoreCase(var[i].getNombre())) {
@@ -89,5 +80,42 @@ public class ArregloUsuario{
 				var[i].ResultadoPartida(0, 1);
 			}
 		}
+	}
+	
+	public void OrdenarPorPartidas(){
+		Usuario[] ordenado = new Usuario[conta];
+		for (int i = 0; i < conta; i++) {
+			ordenado[i]=var[i];
+		} 
+		for (int i = 0; i < conta; i++) {
+			boolean salir=false;
+			for (int j = 0; j < (conta-1); j++) {
+				if (ordenado[j+1].getGanadas()>ordenado[j].getGanadas()) {
+					Usuario temp = ordenado[j+1];
+					ordenado[j+1]=ordenado[j];
+					ordenado[j]=temp;
+					salir =true;
+				}
+			}
+			if (salir==false) {
+				i=9;
+			}
+		}
+		for (int i = 0; i < conta; i++) {
+			System.out.println(ordenado[i].getDatos());
+		}
+
+	}
+	// arreglo de usuario pruebas
+	public void Puebas(){
+		conta=8;
+		var[0]=new Usuario("Casimiro", 5, 3);
+		var[1]=new Usuario("Zaira", 4, 2);
+		var[2]=new Usuario("Maria", 10, 7);
+		var[3]=new Usuario("Markel", 8, 3);
+		var[4]=new Usuario("Dionisio", 4, 1);
+		var[5]=new Usuario("Maribel", 7, 5);
+		var[6]=new Usuario("Marina", 9, 4);
+		var[7]=new Usuario("Valeriano", 7, 2);
 	}
 }

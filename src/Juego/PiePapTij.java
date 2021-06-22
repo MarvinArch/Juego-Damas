@@ -11,6 +11,7 @@ public class PiePapTij {
         String ganador="no hay";
         boolean salir =false;
         System.out.println("\nIniciando Juego Piedra, Papel y Tijera");
+        Datos.IngresarCadena("Presione enter para Empezar");
         while(salir==false){
             for (int i = 0; i < 3; i++) {
                 System.out.println(arreglo[i]);
@@ -32,7 +33,7 @@ public class PiePapTij {
             }
             int tmp1 = (int)(Math.random()*3);
             int tmp2 = (int)(Math.random()*3);
-            System.out.println("Jugador "+jug1+" utilizo "+arreglo[tmp1]);
+            System.out.println("\nJugador "+jug1+" utilizo "+arreglo[tmp1]);
             System.out.println("Jugador "+Jug2+" utilizo "+arreglo[tmp2]);
             if (tmp1==0 && tmp2==2) tmp1=3;
             if (tmp2==0 && tmp1==2) tmp2=3;
@@ -47,8 +48,6 @@ public class PiePapTij {
             }
         }
         System.out.println("Felicidades El jugador "+ ganador +" ha Ganado\n");
-        Datos.IngresarCadena("Presione entre para Empezar");
-
         return ganador;
     }
 

@@ -3,6 +3,7 @@ import java.util.*;
 
 import src.Casilla.Tablero;
 import src.Usuario.ArregloUsuario;
+import src.Usuario.Usuario;
 
 public class Inicio{
 	private int conta=0;
@@ -24,7 +25,8 @@ public class Inicio{
 			System.out.println("Opcion No.1: Crear Usuarios");
 			System.out.println("Opcion No.2: Nuevo Juego");
 			System.out.println("Opcion No.3: Mostrar Usuarios");
-			System.out.println("Opcion No.4: Salir");
+			System.out.println("Opcion No.4: Mostrar Usuarios Ordenado por partidas ganadas");
+			System.out.println("Opcion No.5: Salir");
 			int opcion = Datos.IngresoNumeros("Escoga una opcion");
 			switch (opcion){
 				case 1:
@@ -37,14 +39,20 @@ public class Inicio{
 						var2.ImprimirDatos();
 						break;
 				case 4:
+						var2.OrdenarPorPartidas();
+						break;
+				case 5:
 						salir=true;
+				case 100:
+						var2.Puebas();
+						break;
 			}
 		}while(salir==false);
 	}
 
 
 	public void CrearUsuario(){
-		String nombre=Datos.IngresarCadena("Ingrese nombre Jugador "+(conta+1)+"  "); 
+		String nombre=Datos.IngresarCadena("Ingrese nombre Jugador "+(var2.getConta()+1)+"  "); 
 		var2.CrearArreglo(nombre);
 		conta++;
 	}
@@ -53,7 +61,7 @@ public class Inicio{
 		if (tmp>1) {
 			Juego();
 		}else{
-			System.out.println("No hay suficientes jugadores en la lista");
+			System.out.println("\nNo hay suficientes jugadores en la lista");
 			CrearUsuario();
 			NuevoJuego();
 		}
@@ -83,6 +91,7 @@ public class Inicio{
 		}while(ganador==false);
 		String win=var.getGanador();
 		var2.AcreditarPartidaGanada(win);
+		System.out.println("\n"+"Felicidades el Ganador de la partida es "+win+"\n"+"\n");
 		var2.AcreditarPartidaPerdida(win, jug1, jug2);
 		
 	}
@@ -103,4 +112,5 @@ public class Inicio{
 		}
 		return turno;
 	}
+	
 }

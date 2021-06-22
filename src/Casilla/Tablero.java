@@ -16,6 +16,7 @@ public class Tablero{
 	private int cNegras;
 	private String ganador;
 	private boolean sugerido=false;
+	private boolean tiroE;
 	
 
 	public Tablero(){
@@ -80,6 +81,7 @@ public class Tablero{
 
 	public boolean Juego(String jugador){
 		boolean eganador=false;
+		tiroE=false;
 		ImprimirTablero();
 		if (jugador.equalsIgnoreCase(blancas)) {
 			ComprobarComer(false);
@@ -94,7 +96,7 @@ public class Tablero{
 			ganador=blancas;
 			eganador=true;
 		}
-		System.out.println(""+sugerido);
+		if (tiroE==true) Juego(jugador); 
 		return eganador;
 	}
 
@@ -179,11 +181,12 @@ public class Tablero{
 					if (color==true) {
 						cBlancas--;
 						comer=false;
+						tiroE=SegundoMovimiento(true, posXF, posYF,1);
 						sugerido=false;
-						System.out.println("lllll");
 					}else if(color==false){
 						cNegras--;
 						comer=false;
+						tiroE=SegundoMovimiento(color, posXF, posYF,-1);
 						sugerido=false;
 					}
 				}
@@ -239,5 +242,22 @@ public class Tablero{
 			}
 		}
 		return sugerido;	
+	}
+
+	public boolean SegundoMovimiento(boolean color,int posXI, int posYI, int verticalp){
+		boolean sMov=false;
+		int i = posYI;
+		int j = posXI;
+		if ((color==true && i+2<=7)||(color==false && i-2>=0 )) {
+			if (j+2<=7 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+verticalp][j+1].getOcupado()==true && tab[i+verticalp][j+1].getNegro()!=color && tab[i+(2*verticalp)][j+2].getOcupado()==false) {
+				sMov=true;
+			}
+			if (j-2>=0 && tab[i][j].getNegro()==color && tab[i][j].getOcupado()==true && tab[i+verticalp][j-1].getOcupado()==true && tab[i+verticalp][j-1].getNegro()!=color && tab[i+(2*verticalp)][j-2].getOcupado()==false){	
+				sMov=true;
+				System.out.println("entro");
+			}
+			
+		}
+		return sMov;
 	}
 }
